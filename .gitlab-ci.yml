@@ -8,6 +8,7 @@ image: python:3.8-slim-buster
 
 before_script:
   - pip install -r dev-requirements.txt
+  - source .env
 
 build:
   stage: build
