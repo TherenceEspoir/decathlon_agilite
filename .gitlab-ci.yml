@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+  - deploy
+  - release
+
+image: python:3.8-slim-buster
+
+before_script:
+  - pip install -r requirements.txt
+
+build:
+  stage: build
+  script:
+    - python -m build
+
+test:
+  stage: test
+  script:
+    - pip install .
+    - pytest --junitxml=report.xml --cov=src/test
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+
+release_job:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG # Run this job when a tag is created
+  before_script:
+    - echo "Prepare new release"
+  script:
+    - echo "Running release_job"
+  release: # See https://docs.gitlab.com/ee/ci/yaml/#release
+    tag_name: '$CI_COMMIT_TAG'
+    description: '$CI_COMMIT_TAG'
