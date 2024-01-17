@@ -1,0 +1,4 @@
+pylint==3.0.3
+pytest==7.4.4
+uvicorn==0.26.0
+fastapi==0.109.0
