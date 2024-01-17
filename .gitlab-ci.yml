@@ -18,7 +18,7 @@ test:
   stage: test
   script:
     - pip install .
-    - pytest --junitxml=report.xml --cov=src/test
+    - pytest --junitxml=report.xml --cov=test
   artifacts:
     when: always
     reports:
