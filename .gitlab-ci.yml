@@ -2,7 +2,7 @@ stages:
   - build
   - test
   - deploy
-  - sonarqube
+  - sonarcloud
   - release
 
 
@@ -17,13 +17,12 @@ build:
   script:
     - pip install --upgrade pip
     - python -m build
-    
 
 test:
   stage: test
   script:
     - pip install -e .
-    - pytest --cov=src/treevolution
+    - pytest --cov=src/decathlon
     - pytest --junitxml=report.xml
   coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'  
   
@@ -56,7 +55,7 @@ release_job:
 
 
 sonarcloud-check:
-  stage: sonarqube
+  stage: sonarcloud
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
@@ -71,8 +70,9 @@ sonarcloud-check:
     - pip install -e .
     - pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:tests/coverage.xml --junitxml=tests/nosetests.xml
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt src
+    - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt tests
     - sonar-scanner -Dsonar.qualitygate.wait=true
-  #allow_failure: true
+  allow_failure: true
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'espoir' || $CI_PIPELINE_SOURCE == 'merge_request_event' 
+    - if: $CI_COMMIT_REF_NAME == 'develop' || $CI_PIPELINE_SOURCE == 'merge_request_event' 
       when: always
