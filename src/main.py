@@ -3,13 +3,8 @@ from buisness.worker import Worker
 
 def main() -> int :
 
-    print("Hello world")
-    test = Worker()
-    
-    return 0 
+    return "Hello World!"
 
 
 if __name__ == "__main__" : 
     main()
-
-
