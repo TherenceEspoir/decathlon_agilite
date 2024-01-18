@@ -1,5 +1,3 @@
-from src.decathlon.connexion import get_connection
-
 def main():
     return "Hello World!"
 
