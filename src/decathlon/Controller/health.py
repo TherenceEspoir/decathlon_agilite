@@ -2,9 +2,9 @@ from http.client import HTTPException
 from typing import Union
 import uuid
 
-from decathlon.connexion import get_connection
+from src.decathlon.connexion import get_connection
 
-from decathlon.Model.models import HealthData, Unite
+from src.decathlon.Model.models import HealthData, Unite
 
 db_connection=get_connection()
 cursor = db_connection.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='healthData';")

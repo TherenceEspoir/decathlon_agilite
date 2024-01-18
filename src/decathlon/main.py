@@ -1,6 +1,8 @@
 from fastapi import Depends, FastAPI, Header, HTTPException
-from decathlon.Model.models import HealthData
-import decathlon.Controller.health as health
+
+import src.decathlon.Controller.health as health
+
+from src.decathlon.Model.models import HealthData
 
 
 app = FastAPI()
