@@ -13,7 +13,7 @@ class user(Identifiable):
     name: str
     mail: str
     password: str
-    bearth_date: datetime
+    birth_date: datetime
     
     
     
@@ -26,7 +26,6 @@ class Unite(Identifiable):
 #Classe healthData avec les différents attributs poids , frequence cardiaque, durée de sommeil, nombre de pas 
     
 class HealthData(Identifiable):
-    id: int
     id_user: int
     date: datetime
     nombre_pas: int
