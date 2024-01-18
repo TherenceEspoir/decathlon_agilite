@@ -20,3 +20,15 @@ class HealthData(Identifiable):
     u_poids: int
     taille: float
     u_taille: int
+
+class HealthDataInput(Identifiable):
+    id_user: int
+    nombre_pas: int
+    duree_sommeil: int
+    u_duree_sommeil: int
+    frequence_cardiaque: int
+    u_frequence_cardiaque: int
+    poids: int
+    u_poids: int
+    taille: float
+    u_taille: int
