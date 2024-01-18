@@ -4,6 +4,7 @@ import src.decathlon.Controller.health as health
 
 from src.decathlon.Model.health import HealthData
 # from src.decathlon.Model.health import HealthData
+import src.decathlon.Controller.init_bdd
 
 from datetime import datetime
 
@@ -74,8 +75,8 @@ health_data_instance_2 = HealthData(
 )
 
 
-SaisirDonnee(health_data_instance_1)
-SaisirDonnee(health_data_instance_2)
+# SaisirDonnee(health_data_instance_1)
+# SaisirDonnee(health_data_instance_2)
 
-print(health.healthData(0));
-print(health.healthData(1));
+# print(health.healthData(0))
+# print(health.healthData(1))
