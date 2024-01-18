@@ -1,15 +1,21 @@
-
+import os
 from src.decathlon.Model.health import HealthData
 from src.decathlon.connexion import get_connection
 
-db_connection=get_connection()
-cursor = db_connection.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='healthData';")
-healthData_exists = cursor.fetchone() is not None
+class DecathlonDBManager:
+    def __init__(self, db_filename="decathlon.db"):
+        self.db_filename = db_filename
+        self.db_connection = get_connection()
 
-if not healthData_exists:
-    db_connection.execute(
-        """
-            CREATE TABLE healthData (
+    def check_and_create_db(self):
+        # Vérifier si la base de données existe déjà
+        db_exists = os.path.exists(self.db_filename)
+
+        # Si la base de données n'existe pas, créez-la et les tables
+        if not db_exists:
+            self.db_connection.execute(
+                """
+                CREATE TABLE healthData (
                     id TEXT PRIMARY KEY,
                     id_user INTEGER,
                     date DATETIME, 
@@ -22,63 +28,47 @@ if not healthData_exists:
                     u_poids INTEGER,
                     taille FLOAT,
                     u_taille INTEGER
-        );"""
-    )
-    db_connection.commit()
-
-cursor = db_connection.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='user';")
-
-user_exists = cursor.fetchone() is not None
-
-#si la table n'existe pas on la crée
-
-if not user_exists:
-    db_connection.execute(
-        """
-            CREATE TABLE user (
+                );"""
+            )
+            self.db_connection.execute(
+                """
+                CREATE TABLE user (
                     id TEXT PRIMARY KEY,
                     name TEXT,
                     mail TEXT,
                     password TEXT,
                     birth_date DATETIME
-        );"""
-    )
-    db_connection.commit()
-
-cursor = db_connection.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='unite';")
-
-unite_exists = cursor.fetchone() is not None
-
-#si la table n'existe pas on la crée
-
-if not unite_exists:
-    db_connection.execute(
-        """
-            CREATE TABLE unite (
+                );"""
+            )
+            self.db_connection.execute(
+                """
+                CREATE TABLE unite (
                     id TEXT PRIMARY KEY,
                     name TEXT,
                     abbreviation TEXT
-        );"""
-    )
-    db_connection.commit()
-    
-cursor = db_connection.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='unite_convertion';")
-
-unite_convertion_exists = cursor.fetchone() is not None
-
-#si la table n'existe pas on la crée
-
-if not unite_convertion_exists:
-    db_connection.execute(
-        """
-            CREATE TABLE unite_convertion (
+                );"""
+            )
+            self.db_connection.execute(
+                """
+                CREATE TABLE unite_convertion (
                     from_id TEXT,
                     to_id TEXT,
                     rapport FLOAT
-        );"""
-    )
-    db_connection.commit()
+                );"""
+            )
+            self.db_connection.commit()
 
-db_connection.close()
+        # Fermez la connexion à la base de données
+        self.db_connection.close()
 
+        # Vérifiez à nouveau si la base de données existe après la fermeture
+        db_exists = os.path.exists(self.db_filename)
 
+        if db_exists:
+            print("La base de données est lue.")
+        else:
+            print("La base de données a été créée.")
+
+# Utilisation de la classe
+db_manager = DecathlonDBManager()
+db_manager.check_and_create_db()
