@@ -1,6 +1,6 @@
 Instructions à réaliser
 
-pip install -r requirements.txt
+pip install -r dev-requirements.txt
 
 Depuis le dossier projetAgilite
 
