@@ -1,6 +1,3 @@
-from buisness.worker import Worker
-
-
 def main() -> int :
 
     return "Hello World!"
