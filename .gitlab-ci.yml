@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - deploy
   - sonarqube
   - release
@@ -18,6 +19,14 @@ build:
     - python -m build
     
 
+test:
+  stage: test
+  script:
+    - pip install -e .
+    - pytest --cov=src/treevolution
+    - pytest --junitxml=report.xml
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'  
+  
 
 pages:
   stage: deploy
@@ -60,6 +69,7 @@ sonarcloud-check:
       - .sonar/cache
   script:
     - pip install -e .
+    - pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:tests/coverage.xml --junitxml=tests/nosetests.xml
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt src
     - sonar-scanner -Dsonar.qualitygate.wait=true
   #allow_failure: true
