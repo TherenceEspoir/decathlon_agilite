@@ -2,7 +2,8 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 
 import src.decathlon.Controller.health as health
 
-from src.decathlon.Model.models import HealthData
+from src.decathlon.Model.health import HealthData
+# from src.decathlon.Model.health import HealthData
 
 from datetime import datetime
 

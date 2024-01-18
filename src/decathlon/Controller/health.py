@@ -4,7 +4,7 @@ import uuid
 
 from src.decathlon.connexion import get_connection
 
-from src.decathlon.Model.models import HealthData, Unite
+from src.decathlon.Model.health import HealthData
 
 from datetime import datetime
 
