@@ -53,13 +53,15 @@ app.add_middleware(
 async def root():
     return {"message": "Hello , API de gestion de données de santé"}
 
+@app.post("/users/",tags=["user"],response_model=User)
+async def create_user(user: UserInput):
+    return post_user(user)
+
 @app.get("/users/{user_id}",tags=["user"])
 async def read_user(user_id: int):
     return get_user_by_id(user_id)
 
-@app.post("/users/",tags=["user"])
-async def create_user(user: UserInput):
-    return post_user(user)
+
 
 @app.get("/health_data/{user_id}",tags=["health_data"])
 async def read_health_data(user_id: int):
