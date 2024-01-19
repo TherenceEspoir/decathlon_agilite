@@ -19,12 +19,10 @@ build:
 test:
   stage: test
   script:
-    - pip install .
-    - pytest --junitxml=build/report.xml --cov=test
-  artifacts:
-    when: always
-    reports:
-      junit: report.xml
+    - pip install -e .
+    - pytest --cov=src/decathlon
+    - pytest --junitxml=report.xml
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'  
 
 release_job:
   stage: release
@@ -53,9 +51,9 @@ sonarcloud-check:
       - .sonar/cache
   script:
     - pip install -e .
-    - pytest -v -o junit_family=xunit1 --cov=test --cov-report xml:test/coverage.xml --junitxml=build/report.xml
+    - pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:tests/coverage.xml --junitxml=tests/nosetests.xml
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt src
-    - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt test
+    - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt tests
     - sonar-scanner -Dsonar.qualitygate.wait=true
   allow_failure: true
   rules:
