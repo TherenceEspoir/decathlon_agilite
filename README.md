@@ -1,15 +1,24 @@
-Instructions à réaliser
+### Information sur les livrables :
+
+Nom du groupe : Les anacondas [Master I2L]
+- Adrien Valette
+- Espoir Houedji
+- Clément Goudal
+- Maximilien Thovois
+
+Tout les livrables (documentations fonctionnel, technique, compte rendu, definition of done) sont dans le dossier docsExternes. 
+
+Le board "Kanban" avec le backlog priorisé sont dans la catégorie "Issue board" du gitlab.
+
+
+### Instructions à réaliser pour compiler
+
+[Depuis le dossier projetAgilite]
+
+source .env
 
 pip install -r requirements.txt
 
-Depuis le dossier projetAgilite
-
 uvicorn src.decathlon.main:app --reload --host 127.0.0.2 --port 8001 (A vous de specifier le host et le port souhaité)
 
-Lien du swagger: http://127.0.0.2:8001/docs#/ 
-
-Reste à faire identifié pour le moment
-
-[] Finir la conceptualisation de la bdd
-[] création de bdd de test
-[] Faire des test unitaire pour faire passer le job sonar
+Lien du swagger (interface permettant de tester l'API): http://127.0.0.2:8001/docs#/ 
