@@ -63,7 +63,7 @@ async def read_user(user_id: int):
 
 
 
-@app.get("/health_data/{user_id}",tags=["health_data"])
+@app.get("/health_data/{user_id}",tags=["health_data"],response_model=HealthDataInput)
 async def read_health_data(user_id: int):
     return health_data_by_user_id(user_id)
     
@@ -77,7 +77,7 @@ async def read_health_data(
     return get_health_history_data_by_user_id(user_id, start_date, end_date)
 
 
-@app.post("/health_data/",tags=["health_data"])
+@app.post("/health_data/",tags=["health_data"],response_model=HealthDataInput)
 async def create_or_update_health_data(health_data: HealthDataInput,date : Optional[date] = date.today()):
     return post_health_data(health_data,date)
 
