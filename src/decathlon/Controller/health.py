@@ -1,8 +1,5 @@
 from http.client import HTTPException
 from typing import Union
-import uuid
-
-from src.decathlon.Controller.init_bdd import DecathlonDBManager
 
 from src.decathlon.Model.health import HealthData, HealthDataInput
 
@@ -10,7 +7,6 @@ from datetime import datetime
 
 from src.decathlon.Controller.init_bdd import conn, cursor
 from dateutil import parser
-# from src.decathlon.main import app
 from datetime import date
 
 from fastapi.middleware.cors import CORSMiddleware
