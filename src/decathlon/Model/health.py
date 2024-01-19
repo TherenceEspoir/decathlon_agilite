@@ -1,11 +1,11 @@
-from datetime import datetime
+from datetime import date
 from pydantic import BaseModel
 import typing
 
 
 class HealthData(BaseModel):
     id_user: int
-    date: datetime
+    date: date
     nombre_pas: int
     duree_sommeil: int
     u_duree_sommeil: int
