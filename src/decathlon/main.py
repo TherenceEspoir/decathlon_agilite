@@ -1,82 +1,46 @@
 from fastapi import Depends, FastAPI, Header, HTTPException
-
-import src.decathlon.Controller.health as health
-
-from src.decathlon.Model.health import HealthData
-# from src.decathlon.Model.health import HealthData
 import src.decathlon.Controller.init_bdd
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
-from datetime import datetime
-
-import uuid  # Importe le module uuid
-
+import src.decathlon.Controller.health
+from src.decathlon.Controller.user import get_user_by_id, post_user
+from src.decathlon.Model.user import User
+from src.decathlon.Model.health import HealthDataInput
+from src.decathlon.Controller.health import health_data_by_user_id, get_health_history_data_by_user_id, post_health_data
 
 
 
 
 app = FastAPI()
-
-@app.get("/")
-def welcome():
-    return {"message": "Hello, Api decathlon en cours de construction"}
-
-
-# HEALTH DATA
-
-
-@app.post("/SaisirDonnee", tags=["HEALTH DATA"])
-def SaisirDonnee(donnee: HealthData):
-    return health.create_healthData(donnee)
-
-@app.get("/getHealthData/{id_user}", tags=["HEALTH DATA"])
-def getHealthData(id_user : int):
-    return health.healthData(id_user)
-
-
-
-
-
-
-
-
-
-
-
-health_data_instance_1 = HealthData(
-    uuid=uuid.uuid4(),  # Utilise uuid.uuid4() pour générer un uuid aléatoire
-    id_user=0,
-    date=datetime.now(),
-    nombre_pas=1000,
-    duree_sommeil=1,
-    u_duree_sommeil=1,  # Exemple de valeur pour l'unité de durée de sommeil
-    frequence_cardiaque=10,
-    u_frequence_cardiaque=1,  # Exemple de valeur pour l'unité de fréquence cardiaque
-    poids=10,
-    u_poids=1,  # Exemple de valeur pour l'unité de poids
-    taille=1,
-    u_taille=1  # Exemple de valeur pour l'unité de taille
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
+@app.get("/users/{user_id}")
+async def read_user(user_id: int):
+    return get_user_by_id(user_id)
+
+@app.post("/users/")
+async def create_user(user: User):
+    return post_user(user)
+
+@app.get("/health_data/{user_id}")
+async def read_health_data(user_id: int):
+    return health_data_by_user_id(user_id)
+    
+
+@app.get("/health_data/{user_id}/{start_date},{end_date}")
+async def read_health_data(user_id: int, start_date: str, end_date: str):
+    return get_health_history_data_by_user_id(user_id, start_date, end_date)
 
 
-health_data_instance_2 = HealthData(
-    uuid=uuid.uuid4(),  # Utilise uuid.uuid4() pour générer un uuid aléatoire
-    id_user=1,
-    date=datetime.now(),
-    nombre_pas=2000,
-    duree_sommeil=2,
-    u_duree_sommeil=2,  # Exemple de valeur pour l'unité de durée de sommeil
-    frequence_cardiaque=20,
-    u_frequence_cardiaque=2,  # Exemple de valeur pour l'unité de fréquence cardiaque
-    poids=20,
-    u_poids=2,  # Exemple de valeur pour l'unité de poids
-    taille=2,
-    u_taille=2  # Exemple de valeur pour l'unité de taille
-)
 
+@app.post("/health_data/")
+async def create_or_update_health_data(health_data: HealthDataInput):
+    return post_health_data(health_data)
 
-# SaisirDonnee(health_data_instance_1)
-# SaisirDonnee(health_data_instance_2)
-
-# print(health.healthData(0))
-# print(health.healthData(1))
