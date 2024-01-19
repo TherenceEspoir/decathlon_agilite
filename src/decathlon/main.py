@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import src.decathlon.Controller.health
 from src.decathlon.Controller.user import get_user_by_id, post_user
-from src.decathlon.Model.user import User
+from src.decathlon.Model.user import User, UserInput
 from src.decathlon.Model.health import HealthDataInput
 from src.decathlon.Controller.health import health_data_by_user_id, get_health_history_data_by_user_id, post_health_data
 
@@ -26,7 +26,7 @@ async def read_user(user_id: int):
     return get_user_by_id(user_id)
 
 @app.post("/users/")
-async def create_user(user: User):
+async def create_user(user: UserInput):
     return post_user(user)
 
 @app.get("/health_data/{user_id}")

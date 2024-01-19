@@ -9,3 +9,9 @@ class User(BaseModel):
     mail: str
     password: str
     birth_date: datetime
+
+class UserInput(BaseModel):
+    name: str
+    mail: str
+    password: str
+    birth_date: datetime
