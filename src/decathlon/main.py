@@ -49,6 +49,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/",tags=["Acceuil"])
+async def root():
+    return {"message": "Hello , API de gestion de données de santé"}
 
 @app.get("/users/{user_id}",tags=["user"])
 async def read_user(user_id: int):
