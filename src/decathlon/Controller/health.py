@@ -8,8 +8,9 @@ from src.decathlon.Model.health import HealthData
 
 from datetime import datetime
 
-
-db_connection=DecathlonDBManager().__enter__()
+with DecathlonDBManager() as db_manager:
+    db_manager.check_and_create_db()
+    db_connection=db_manager.db_connection
 
 
 
