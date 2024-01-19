@@ -18,6 +18,10 @@ Il suit une architecture de type API RESTful, ce qui signifie qu'il expose des e
 **PyTest-Cov**  : PyTest-Cov est une extension de PyTest qui permet de collecter des informations de couverture de code lors de l'exécution des tests
 
 
+# Base de donnée:
+Deux tables ont servi à la construction de cet API. La table user et la table users et la table health_data.
+La table user contient les informations relatives aux utilisateurs, comme leur nom,mail ,mot de passe , date de naissance et l'id . A coté nous avons la table health_data qui contient les données de santés que l'utilisateur renseignera. elle a un lien avec la table users au moyen d'un champ id_user qui correspond à l'utilisateur à qui les données appartiennent.
+
 
 ## Analyse de Code
 
