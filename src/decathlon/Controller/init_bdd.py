@@ -1,3 +1,5 @@
+import os
+import sqlite3
 
 from src.decathlon.Model.health import HealthData
 from src.decathlon.connexion import get_connection

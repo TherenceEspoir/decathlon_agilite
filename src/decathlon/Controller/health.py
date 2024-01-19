@@ -2,7 +2,7 @@ from http.client import HTTPException
 from typing import Union
 import uuid
 
-from src.decathlon.connexion import get_connection
+from src.decathlon.Controller.init_bdd import DecathlonDBManager
 
 from src.decathlon.Model.health import HealthData, HealthDataInput
 
