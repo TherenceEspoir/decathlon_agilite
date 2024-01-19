@@ -9,7 +9,7 @@ from src.decathlon.Model.user import User
 from src.decathlon.Model.health import HealthDataInput
 from src.decathlon.Controller.health import health_data_by_user_id, get_health_history_data_by_user_id, post_health_data
 
-
+from typing import Dict, Optional, Union
 
 
 app = FastAPI()
@@ -34,10 +34,13 @@ async def read_health_data(user_id: int):
     return health_data_by_user_id(user_id)
     
 
-@app.get("/health_data/{user_id}/{start_date},{end_date}")
-async def read_health_data(user_id: int, start_date: str, end_date: str):
+@app.get("/UserHealthDataHistory/{user_id}")
+async def read_health_data(
+    user_id: int,
+    start_date: str,
+    end_date: str
+    ):
     return get_health_history_data_by_user_id(user_id, start_date, end_date)
-
 
 
 @app.post("/health_data/")
