@@ -21,20 +21,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/users/{user_id}")
+
+@app.get("/users/{user_id}",tags=["user"])
 async def read_user(user_id: int):
     return get_user_by_id(user_id)
 
-@app.post("/users/")
+@app.post("/users/",tags=["user"])
 async def create_user(user: UserInput):
     return post_user(user)
 
-@app.get("/health_data/{user_id}")
+@app.get("/health_data/{user_id}",tags=["health_data"])
 async def read_health_data(user_id: int):
     return health_data_by_user_id(user_id)
     
 
-@app.get("/UserHealthDataHistory/{user_id}")
+@app.get("/UserHealthDataHistory/{user_id}",tags=["health_data"])
 async def read_health_data(
     user_id: int,
     start_date: str,
@@ -43,7 +44,7 @@ async def read_health_data(
     return get_health_history_data_by_user_id(user_id, start_date, end_date)
 
 
-@app.post("/health_data/")
+@app.post("/health_data/",tags=["health_data"])
 async def create_or_update_health_data(health_data: HealthDataInput):
     return post_health_data(health_data)
 
