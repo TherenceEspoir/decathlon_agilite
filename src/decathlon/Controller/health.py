@@ -25,7 +25,7 @@ app.add_middleware(
 
 def health_data_by_user_id(user_id: int):
     try:
-        cursor.execute("SELECT * FROM health_data WHERE id_user=?", (user_id,))
+        cursor.execute("SELECT * FROM health_data WHERE id_user=? and date=?", (user_id,date.today()))
         health_data_list = cursor.fetchall()
 
         if not health_data_list:
@@ -91,10 +91,10 @@ def get_health_history_data_by_user_id(user_id: int, start_date: int, end_date: 
         raise HTTPException(status_code=500, detail=f"Error retrieving health data: {str(e)}")
     
 
-def post_health_data(health_data: HealthDataInput):
+def post_health_data(health_data: HealthDataInput,date: date):
     try:
         cursor.execute("SELECT id FROM health_data WHERE id_user=? AND date=?",
-                       (health_data.id_user, date.today()))
+                       (health_data.id_user, date))
         existing_data_id = cursor.fetchone()
 
         if existing_data_id:
@@ -110,7 +110,7 @@ def post_health_data(health_data: HealthDataInput):
             cursor.execute("INSERT INTO health_data (id_user, date, nombre_pas, duree_sommeil, u_duree_sommeil, "
                            "frequence_cardiaque, u_frequence_cardiaque, poids, u_poids, taille, u_taille) "
                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (health_data.id_user, date.today(), health_data.nombre_pas,
+                           (health_data.id_user, date, health_data.nombre_pas,
                             health_data.duree_sommeil, health_data.u_duree_sommeil,
                             health_data.frequence_cardiaque, health_data.u_frequence_cardiaque,
                             health_data.poids, health_data.u_poids,

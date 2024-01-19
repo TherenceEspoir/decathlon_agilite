@@ -1,3 +1,4 @@
+from datetime import date
 from fastapi import Depends, FastAPI, Header, HTTPException
 import src.decathlon.Controller.init_bdd
 from fastapi import FastAPI, HTTPException
@@ -72,6 +73,6 @@ async def read_health_data(
 
 
 @app.post("/health_data/",tags=["health_data"])
-async def create_or_update_health_data(health_data: HealthDataInput):
-    return post_health_data(health_data)
+async def create_or_update_health_data(health_data: HealthDataInput,date : Optional[date] = date.today()):
+    return post_health_data(health_data,date)
 
