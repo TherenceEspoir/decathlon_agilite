@@ -53,8 +53,8 @@ sonarcloud-check:
     - pip install -e .
     - pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:tests/coverage.xml --junitxml=tests/nosetests.xml
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt src
-    - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt tests
-    - sonar-scanner -Dsonar.qualitygate.wait=true
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.python.coverage.reportPaths=tests/coverage.xml
+
   allow_failure: true
   rules:
     - if: $CI_COMMIT_REF_NAME == 'develop2' || $CI_PIPELINE_SOURCE == 'merge_request_event' 
