@@ -53,11 +53,11 @@ sonarcloud-check:
       - .sonar/cache
   script:
     - pip install -e .
-    - pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:build/report.xml --junitxml=test/nosetests.xml
+    - pytest -v -o junit_family=xunit1 --cov=test --cov-report xml:test/coverage.xml --junitxml=build/report.xml
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt src
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt test
     - sonar-scanner -Dsonar.qualitygate.wait=true
   allow_failure: true
   rules:
-    - if: $CI_COMMIT_REF_NAME == 'develop2' || $CI_PIPELINE_SOURCE == 'merge_request_event' 
+    - if: $CI_COMMIT_REF_NAME == 'develop' || $CI_PIPELINE_SOURCE == 'merge_request_event' 
       when: always
