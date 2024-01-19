@@ -25,9 +25,9 @@ Ce projet est lié à SonarCloud, un service d'analyse de code statique en ligne
 
 ## Structure du Projet
 
-Le code source du projet est organisé en plusieurs fichiers et répertoires:Vous avez des répertoires tels que Controller pour gérer la logique métier, Model pour définir les modèles de données, et main pour définir les routes de l'API.
+Le code source du projet est organisé en plusieurs fichiers et répertoires : Vous avez des répertoires tels que Controller pour gérer la logique métier, Model pour définir les modèles de données, et main pour définir les routes de l'API.
 
-Le fichier decathlon.db représente la base de donnée SQLite3.
+Le fichier mydatabase.db représente la base de donnée SQLite3.
 
 ## Tests
 
