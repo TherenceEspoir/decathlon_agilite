@@ -15,7 +15,8 @@ class HealthData(BaseModel):
     u_poids: int
     taille: float
     u_taille: int
-
+    
+        
 class HealthDataInput(BaseModel):
     id_user: int
     nombre_pas: int

@@ -6,8 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import src.decathlon.Controller.health
 from src.decathlon.Controller.user import get_user_by_id, post_user
-from src.decathlon.Model.user import User, UserInput
-from src.decathlon.Model.health import HealthDataInput
+from src.decathlon.Model.user import User, UserInput, UserResponse
+from src.decathlon.Model.health import HealthDataInput, HealthData
 from src.decathlon.Controller.health import health_data_by_user_id, get_health_history_data_by_user_id, post_health_data
 from fastapi.openapi.utils import get_openapi
 
@@ -53,11 +53,11 @@ app.add_middleware(
 async def root():
     return {"message": "Hello , API de gestion de données de santé"}
 
-@app.post("/users/",tags=["user"],response_model=User)
+@app.post("/users/",tags=["user"],response_model=UserResponse)
 async def create_user(user: UserInput):
     return post_user(user)
 
-@app.get("/users/{user_id}",tags=["user"])
+@app.get("/users/{user_id}",tags=["user"],response_model=UserResponse)
 async def read_user(user_id: int):
     return get_user_by_id(user_id)
 
