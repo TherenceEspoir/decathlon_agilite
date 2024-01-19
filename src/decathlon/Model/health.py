@@ -2,13 +2,10 @@ from datetime import datetime
 from pydantic import BaseModel
 import typing
 
-import uuid
-
-from src.decathlon.Model.identifiable import Identifiable
 
 
 
-class HealthData(Identifiable):
+class HealthData(BaseModel):
     id_user: int
     date: datetime
     nombre_pas: int
@@ -21,7 +18,7 @@ class HealthData(Identifiable):
     taille: float
     u_taille: int
 
-class HealthDataInput(Identifiable):
+class HealthDataInput(BaseModel):
     id_user: int
     nombre_pas: int
     duree_sommeil: int
