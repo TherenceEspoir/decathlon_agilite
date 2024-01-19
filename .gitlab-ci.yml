@@ -55,7 +55,7 @@ sonarcloud-check:
       
   script:
     - pip install -e .
-    - pytest -v -o --cov=test --cov-report --junitxml=build/report.xml
+    - pytest -v -o junit_family=xunit1 --cov=src --cov-report xml:test/coverage.xml --junitxml=build/report.xml
     - pylint --exit-zero --disable=C0303,R0902 --output pylint-report.txt src
     - sonar-scanner -Dsonar.qualitygate.wait=true
   allow_failure: true
