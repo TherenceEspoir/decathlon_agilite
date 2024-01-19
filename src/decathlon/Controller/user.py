@@ -50,3 +50,15 @@ def post_user(userInput:UserInput):
         return user
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error creating user: {str(e)}")
+    
+def delete_user_and_healthdata(user_id: int):
+    try:
+        cursor.execute("DELETE FROM users WHERE id=?", (user_id,))
+
+        cursor.execute("DELETE FROM health_data WHERE id_user=?", (user_id,))
+
+        conn.commit()
+
+        return {"detail": f"User with ID {user_id} and associated health data have been deleted successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting user: {str(e)}")

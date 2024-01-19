@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import src.decathlon.Controller.health
-from src.decathlon.Controller.user import get_user_by_id, post_user
+from src.decathlon.Controller.user import get_user_by_id, post_user, delete_user_and_healthdata
 from src.decathlon.Model.user import User, UserInput, UserResponse
 from src.decathlon.Model.health import HealthDataInput, HealthData
 from src.decathlon.Controller.health import health_data_by_user_id, get_health_history_data_by_user_id, post_health_data
@@ -80,4 +80,8 @@ async def read_health_data(
 @app.post("/health_data/",tags=["health_data"])
 async def create_or_update_health_data(health_data: HealthDataInput,date : Optional[date] = date.today()):
     return post_health_data(health_data,date)
+
+@app.delete("/users/{user_id}", tags=["user"])
+async def delete_user(user_id: int):
+    delete_user_and_healthdata(user_id)
 

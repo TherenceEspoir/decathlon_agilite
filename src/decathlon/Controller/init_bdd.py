@@ -13,10 +13,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                     password TEXT,
                     birth_date DATETIME)''')
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS unites (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT,
-                    abbreviation TEXT)''')
+
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS health_data (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
